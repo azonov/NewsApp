@@ -11,8 +11,9 @@ import CoreData
 
 class SettingsModel {
     
-    private var sourceSaver: SourceSaver
     var viewContext: NSManagedObjectContext
+    
+    private var sourceSaver: SourceSaver
     
     init(with container: DataBaseContainable) {
         viewContext = container.viewContext

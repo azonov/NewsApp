@@ -18,7 +18,7 @@ public class SourceMO: NSManagedObject {
         name: String?,
         isOn: Bool?,
         context: NSManagedObjectContext) throws
-    {
+{
         let request: NSFetchRequest<SourceMO> = SourceMO.fetchRequest(for: url)
         
         let source: SourceMO

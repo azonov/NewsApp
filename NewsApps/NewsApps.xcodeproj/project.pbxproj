@@ -83,9 +83,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		579C36C31FE6DF5B0048E519 /* Parsers */ = {
+			isa = PBXGroup;
+			children = (
+				AE7B9B551FCD339D00B527FA /* FeedItemParser.swift */,
+				AE61816F1FDFB61C007502C1 /* SourceInfoParser.swift */,
+				AE5933E41FDFA76B00E882D5 /* WylsaComFeedParser.swift */,
+			);
+			path = Parsers;
+			sourceTree = "<group>";
+		};
+		579C36C41FE6DF700048E519 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AE7CA92A1FBABA9500868362 /* FeedItem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		579C36C51FE6DF840048E519 /* Savers */ = {
+			isa = PBXGroup;
+			children = (
+				AE7B9B571FCD3A4900B527FA /* FeedItemSaver.swift */,
+				AE6181711FDFB8D3007502C1 /* SourceSaver.swift */,
+			);
+			path = Savers;
+			sourceTree = "<group>";
+		};
 		57FA9E781FE6CD12001F70CF /* General */ = {
 			isa = PBXGroup;
 			children = (
+				579C36C41FE6DF700048E519 /* Models */,
+				579C36C31FE6DF5B0048E519 /* Parsers */,
+				AEA8E5481FBACA320080F91B /* CoreData */,
+				AE7B9B521FCD29C900B527FA /* XML */,
 				57FA9E7A1FE6CD38001F70CF /* DataBaseContainer.swift */,
 			);
 			path = General;
@@ -144,15 +175,7 @@
 		AE3C31B71F95CAA800873DD6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				AE7B9B521FCD29C900B527FA /* XML */,
-				AEA8E5481FBACA320080F91B /* CoreData */,
 				AE3C31C01F95CEB700873DD6 /* FeedModel.swift */,
-				AE5933E41FDFA76B00E882D5 /* WylsaComFeedParser.swift */,
-				AE7B9B551FCD339D00B527FA /* FeedItemParser.swift */,
-				AE61816F1FDFB61C007502C1 /* SourceInfoParser.swift */,
-				AE7CA92A1FBABA9500868362 /* FeedItem.swift */,
-				AE6181711FDFB8D3007502C1 /* SourceSaver.swift */,
-				AE7B9B571FCD3A4900B527FA /* FeedItemSaver.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -262,6 +285,7 @@
 		AEA8E5481FBACA320080F91B /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				579C36C51FE6DF840048E519 /* Savers */,
 				AEA8E5611FBACD6B0080F91B /* Entities */,
 				AEA8E5451FBACA2E0080F91B /* Model.xcdatamodeld */,
 				AEA8E5621FBACD920080F91B /* CoreDataManager.swift */,

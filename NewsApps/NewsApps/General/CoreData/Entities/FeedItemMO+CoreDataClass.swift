@@ -13,9 +13,8 @@ import CoreData
 
 public class FeedItemMO: NSManagedObject {
     
-    @discardableResult
     class func createOrUpdate(item: FeedItemProtocol,
-                              context: NSManagedObjectContext) throws -> FeedItemMO
+                              context: NSManagedObjectContext) throws
     {
         let request: NSFetchRequest<FeedItemMO> = FeedItemMO.fetchRequest()
         request.predicate = NSPredicate(format: "title = %@", item.title)
@@ -36,7 +35,5 @@ public class FeedItemMO: NSManagedObject {
         feedItemMO.pubDate = item.pubDate
         feedItemMO.content = item.content
         feedItemMO.url = item.url
-        
-        return feedItemMO
     }
 }
