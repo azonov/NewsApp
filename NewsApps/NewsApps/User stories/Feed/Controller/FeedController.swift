@@ -15,10 +15,25 @@ class FeedController: UIViewController, UITableViewDataSource {
     
     lazy var model = FeedModel(with: UIApplication.container)
     
-    private lazy var fetchedResultsController: NSFetchedResultsController<FeedItemMO> = {
+    private lazy var feedFRC: NSFetchedResultsController<FeedItemMO> = {
         let request: NSFetchRequest<FeedItemMO> = FeedItemMO.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "pubDate", ascending: false)]
         request.predicate = NSPredicate(format: "source.isEnabled = true")
+        
+        let fetchedResultsController = NSFetchedResultsController(
+            fetchRequest: request,
+            managedObjectContext: model.viewContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+        
+        fetchedResultsController.delegate = self
+        
+        return fetchedResultsController
+    }()
+    
+    private lazy var sourcesFRC: NSFetchedResultsController<SourceMO> = {
+        let request: NSFetchRequest<SourceMO> = SourceMO.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "url", ascending: true)]
         
         let fetchedResultsController = NSFetchedResultsController(
             fetchRequest: request,
@@ -41,7 +56,8 @@ class FeedController: UIViewController, UITableViewDataSource {
     
     private func performFetch() {
         do {
-            try fetchedResultsController.performFetch()
+            try feedFRC.performFetch()
+            try sourcesFRC.performFetch()
         } catch {
             print(error)
         }
@@ -50,7 +66,7 @@ class FeedController: UIViewController, UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int
     {
-        guard let objects = fetchedResultsController.fetchedObjects else { return 0 }
+        guard let objects = feedFRC.fetchedObjects else { return 0 }
         return objects.count
     }
     
@@ -59,7 +75,7 @@ class FeedController: UIViewController, UITableViewDataSource {
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath)
         if let newsCell = cell as? NewsCell,
-            let items = fetchedResultsController.fetchedObjects
+            let items = feedFRC.fetchedObjects
         {
             let feedItem = items[indexPath.row]
             newsCell.newsTitleLabel.text = feedItem.title
@@ -71,7 +87,7 @@ class FeedController: UIViewController, UITableViewDataSource {
     override func shouldPerformSegue(withIdentifier identifier: String,
                                      sender: Any?) -> Bool {
         guard identifier == "feedDetails", let index = tableView.indexPathForSelectedRow?.row,
-            let items = fetchedResultsController.fetchedObjects else { return true }
+            let items = feedFRC.fetchedObjects else { return true }
         
         let item = items[index]
         if item.content != nil {
@@ -88,7 +104,7 @@ class FeedController: UIViewController, UITableViewDataSource {
         switch segue.destination {
         case let viewController as FeedDetailsController:
             guard let index = tableView.indexPathForSelectedRow?.row,
-                let items = fetchedResultsController.fetchedObjects else {
+                let items = feedFRC.fetchedObjects else {
                     assertionFailure("Something went wrong!")
                     return
             }
@@ -104,6 +120,11 @@ extension FeedController: NSFetchedResultsControllerDelegate {
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>)
     {
-        tableView.reloadData()
+        if controller == feedFRC {
+            tableView.reloadData()
+        } else if controller == sourcesFRC {
+            performFetch()
+            tableView.reloadData()
+        }
     }
 }

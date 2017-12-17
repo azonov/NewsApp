@@ -32,9 +32,7 @@ class DataBaseContainer: DataBaseContainable {
     }
     
     var saveContext: NSManagedObjectContext {
-        let backgroundContext = container.newBackgroundContext()
-        backgroundContext.automaticallyMergesChangesFromParent = true
-        return backgroundContext
+        return container.newBackgroundContext()
     }
     
 }

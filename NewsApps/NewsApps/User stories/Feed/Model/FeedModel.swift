@@ -18,7 +18,9 @@ class FeedModel: NSObject, XMLParserDelegate {
     }
     
     init(with container: DataBaseContainable) {
-        self.container = container
+        feedItemSaver = FeedItemCoreDataSaver(container: container)
+        sourceSaver = SourceCoreDataSaver(container: container)
+        viewContext = container.viewContext
         let wylsa = Source(sourceInfoParser: SourceInfoParser(),
                            feedItemParser: WylsaComFeedParser(),
                            url: URL(string: "https://wylsa.com/feed")!)
@@ -29,19 +31,12 @@ class FeedModel: NSObject, XMLParserDelegate {
         super.init()
     }
     
+    public var viewContext: NSManagedObjectContext
+    
     private let sources: [Source]
     private let session = URLSession(configuration: .default)
-    private let container: DataBaseContainable
-    private var feedItemSaver: FeedItemSaver {
-        return FeedItemCoreDataSaver(context: container.saveContext)
-    }
-    private var sourceSaver: SourceSaver {
-        return SourceCoreDataSaver(context: container.saveContext)
-    }
-    
-    var viewContext: NSManagedObjectContext {
-        return container.viewContext
-    }
+    private var feedItemSaver: FeedItemSaver
+    private var sourceSaver: SourceSaver
     
     func retreiveFeed() {
         for source in sources {

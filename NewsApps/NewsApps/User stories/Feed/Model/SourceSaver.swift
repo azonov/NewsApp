@@ -16,13 +16,14 @@ protocol SourceSaver {
 
 class SourceCoreDataSaver: SourceSaver {
     
-    private let context: NSManagedObjectContext
+    private let container: DataBaseContainable
     
-    init(context: NSManagedObjectContext) {
-        self.context = context
+    init(container: DataBaseContainable) {
+        self.container = container
     }
     
     func save(source: SourceInfoProtocol) throws {
+        let context = container.saveContext
         try SourceMO.createOrUpdate(with: source.url,
                                     name: source.name,
                                     isOn: source.isOn,

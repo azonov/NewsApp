@@ -11,18 +11,12 @@ import CoreData
 
 class SettingsModel {
     
-    private let container: DataBaseContainable
-
-    private var sourceSaver: SourceSaver {
-        return SourceCoreDataSaver(context: container.saveContext)
-    }
-    
-    var viewContext: NSManagedObjectContext {
-        return container.viewContext
-    }
+    private var sourceSaver: SourceSaver
+    var viewContext: NSManagedObjectContext
     
     init(with container: DataBaseContainable) {
-        self.container = container
+        viewContext = container.viewContext
+        sourceSaver = SourceCoreDataSaver(container: container)
     }
     
     func save(source: SourceMO) {
