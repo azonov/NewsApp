@@ -17,7 +17,7 @@ class FeedController: UIViewController, UITableViewDataSource {
     
     private lazy var fetchedResultsController: NSFetchedResultsController<FeedItemMO> = {
         let request: NSFetchRequest<FeedItemMO> = FeedItemMO.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(key: "pubDate", ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(key: "pubDate", ascending: false)]
         request.predicate = NSPredicate(format: "source.isEnabled = true")
         
         let fetchedResultsController = NSFetchedResultsController(
@@ -36,14 +36,7 @@ class FeedController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         performFetch()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
         model.retreiveFeed()
-        performFetch()
-        tableView.reloadData()
     }
     
     private func performFetch() {
