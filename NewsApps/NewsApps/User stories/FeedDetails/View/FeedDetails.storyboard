@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sS4-WB-klX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lmm-ER-Wqs">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -8,44 +8,39 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="HelveticaNeueLights.ttc">
-            <string>HelveticaNeue-Light</string>
-        </array>
-    </customFonts>
     <scenes>
-        <!--Feed Details View Controller-->
-        <scene sceneID="t0L-rc-xVL">
+        <!--Feed Details Controller-->
+        <scene sceneID="jbC-PU-s2u">
             <objects>
-                <viewController id="sS4-WB-klX" customClass="FeedDetailsViewController" customModule="NewsApps" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="jNf-Px-8JI">
+                <viewController id="lmm-ER-Wqs" customClass="FeedDetailsController" customModule="NewsApps" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bCG-Wa-Xh1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xS-Xk-or4">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="lM5-S9-pwU">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="KUL-vJ-YeP" firstAttribute="trailing" secondItem="3xS-Xk-or4" secondAttribute="trailing" id="6hw-rQ-HIT"/>
-                            <constraint firstItem="3xS-Xk-or4" firstAttribute="leading" secondItem="KUL-vJ-YeP" secondAttribute="leading" id="iah-TF-tdF"/>
-                            <constraint firstItem="3xS-Xk-or4" firstAttribute="top" secondItem="KUL-vJ-YeP" secondAttribute="top" id="wgr-3w-XLw"/>
-                            <constraint firstItem="KUL-vJ-YeP" firstAttribute="bottom" secondItem="3xS-Xk-or4" secondAttribute="bottom" id="zzd-4h-A5V"/>
+                            <constraint firstItem="lM5-S9-pwU" firstAttribute="leading" secondItem="yvh-bi-bgc" secondAttribute="leading" id="C2S-cU-YeL"/>
+                            <constraint firstItem="lM5-S9-pwU" firstAttribute="top" secondItem="yvh-bi-bgc" secondAttribute="top" id="U4b-xZ-hzf"/>
+                            <constraint firstItem="yvh-bi-bgc" firstAttribute="bottom" secondItem="lM5-S9-pwU" secondAttribute="bottom" id="YQD-jC-pOY"/>
+                            <constraint firstItem="yvh-bi-bgc" firstAttribute="trailing" secondItem="lM5-S9-pwU" secondAttribute="trailing" id="YTX-8i-c87"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="KUL-vJ-YeP"/>
+                        <viewLayoutGuide key="safeArea" id="yvh-bi-bgc"/>
                     </view>
                     <connections>
-                        <outlet property="textView" destination="3xS-Xk-or4" id="e3g-Xe-FBA"/>
+                        <outlet property="textView" destination="lM5-S9-pwU" id="BAa-Kh-107"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="WNh-TQ-KEC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P51-kQ-Kxj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="127" y="181"/>
+            <point key="canvasLocation" x="142" y="172"/>
         </scene>
     </scenes>
 </document>

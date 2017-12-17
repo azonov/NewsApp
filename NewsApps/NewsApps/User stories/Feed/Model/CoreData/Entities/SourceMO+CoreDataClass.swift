@@ -15,11 +15,11 @@ public class SourceMO: NSManagedObject {
 
     class func createOrUpdate(
         with url: String,
-        name: String,
-        context: NSManagedObjectContext) throws -> SourceMO
+        name: String?,
+        isOn: Bool?,
+        context: NSManagedObjectContext) throws
     {
-        let request: NSFetchRequest<SourceMO> = SourceMO.fetchRequest()
-        request.predicate = NSPredicate(format: "url = %@", url)
+        let request: NSFetchRequest<SourceMO> = SourceMO.fetchRequest(for: url)
         
         let source: SourceMO
         let result = try context.fetch(request)
@@ -34,7 +34,8 @@ public class SourceMO: NSManagedObject {
         }
         source.name = name
         source.url = url
-        
-        return source
+        if let isOn = isOn {
+            source.isEnabled = isOn
+        }
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 
 protocol FeedItemParsable {
     
-    func parse(data: Data) throws -> [FeedItemProtocol]
+    func parse(data: Data) throws -> [FeedItem]
 }
 
 enum ParsingError: Error {
@@ -20,7 +20,7 @@ enum ParsingError: Error {
 
 class FeedItemXMLParser: FeedItemParsable {
     
-    func parse(data: Data) throws -> [FeedItemProtocol] {
+    func parse(data: Data) throws -> [FeedItem] {
         let xml = XMLCodable.parse(data)
         var result: [FeedItem] = []
         for item in xml["rss"]["channel"]["item"].all {
@@ -33,23 +33,21 @@ class FeedItemXMLParser: FeedItemParsable {
             guard let dateString = item["pubDate"].element?.text else {
                 throw ParsingError.wrongStructure(key: "pubDate")
             }
-            guard let link = item["link"].element?.text,
-                let linkUrl = URL(string: link) else {
+            guard let urlString = item["link"].element?.text,
+                let url = URL(string: urlString) else {
                 throw ParsingError.wrongStructure(key: "link")
             }
-            
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss ZZ"
             
             guard let date = dateFormatter.date(from: dateString) else {
                 throw ParsingError.wrongDataFormat()
             }
-            
             var feedItem = FeedItem(title: title,
-                                    pubDate: date,
-                                    link: linkUrl,
                                     desc: description,
-                                    details: nil)
+                                    content: nil,
+                                    pubDate: date,
+                                    url: url)
             
             parse(item: &feedItem, using: item)
             

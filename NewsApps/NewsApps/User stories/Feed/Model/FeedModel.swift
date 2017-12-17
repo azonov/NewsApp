@@ -12,34 +12,35 @@ import CoreData
 class FeedModel: NSObject, XMLParserDelegate {
     
     struct Source {
-        let parser: FeedItemParsable
+        let sourceInfoParser: SourceInfoParserProtocol
+        let feedItemParser: FeedItemParsable
         let url: URL
     }
     
-    override init() {
-        let wylsa = Source(parser: WylsaComFeedParser(),
+    init(with container: DataBaseContainable) {
+        self.container = container
+        let wylsa = Source(sourceInfoParser: SourceInfoParser(),
+                           feedItemParser: WylsaComFeedParser(),
                            url: URL(string: "https://wylsa.com/feed")!)
-        let lenta = Source(parser: FeedItemXMLParser(),
+        let lenta = Source(sourceInfoParser: SourceInfoParser(),
+                           feedItemParser: FeedItemXMLParser(),
                            url: URL(string: "https://lenta.ru/rss/news")!)
         sources = [wylsa, lenta]
         super.init()
     }
     
-    private let session = URLSession(configuration: .default)
     private let sources: [Source]
-    private lazy var coreDataManager: CoreDataManager = {
-        let manager = CoreDataManager()
-        let context = manager.persistentContaner.viewContext
-        context.automaticallyMergesChangesFromParent = true
-        return manager
-    }()
-    private var saver: FeedItemSaver {
-        let container = coreDataManager.persistentContaner
-        let context = container.newBackgroundContext()
-        return FeedItemCoreDataSaver(context: context)
+    private let session = URLSession(configuration: .default)
+    private let container: DataBaseContainable
+    private var feedItemSaver: FeedItemSaver {
+        return FeedItemCoreDataSaver(context: container.saveContext)
     }
+    private var sourceSaver: SourceSaver {
+        return SourceCoreDataSaver(context: container.saveContext)
+    }
+    
     var viewContext: NSManagedObjectContext {
-        return coreDataManager.persistentContaner.viewContext
+        return container.viewContext
     }
     
     func retreiveFeed() {
@@ -48,8 +49,10 @@ class FeedModel: NSObject, XMLParserDelegate {
             { (data, response, error) in
                 if let data = data {
                     do {
-                        let items = try source.parser.parse(data: data)
-                        try self.saver.save(feedItems: items)
+                        let sourceInfo = try source.sourceInfoParser.parse(data: data)
+                        try self.sourceSaver.save(source: sourceInfo)
+                        let items = try source.feedItemParser.parse(data: data)
+                        try self.feedItemSaver.save(feedItems: items, for: sourceInfo)
                     } catch {
                         print(error)
                     }

@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Лента-->
+        <!--Feed Controller-->
         <scene sceneID="JXh-UU-7VF">
             <objects>
                 <viewController id="RLb-FO-E3A" customClass="FeedController" customModule="NewsApps" customModuleProvider="target" sceneMemberID="viewController">
@@ -29,13 +29,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Заголовок новости" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O9b-Ma-C46">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Заголовок новости" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O9b-Ma-C46">
                                                     <rect key="frame" x="15" y="11" width="345" height="21.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Длинное описание новости, Длинное описание новости, Длинное описание новости, Длинное описание новости." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJN-3h-Cdl">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Длинное описание новости, Длинное описание новости, Длинное описание новости, Длинное описание новости." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJN-3h-Cdl">
                                                     <rect key="frame" x="15" y="41" width="345" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                     <nil key="textColor"/>
@@ -43,11 +43,11 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="O9b-Ma-C46" firstAttribute="top" secondItem="7F8-Tn-dkR" secondAttribute="topMargin" id="0wo-Al-dpY"/>
                                                 <constraint firstItem="NJN-3h-Cdl" firstAttribute="top" secondItem="O9b-Ma-C46" secondAttribute="bottom" constant="8" id="44N-tp-W6j"/>
                                                 <constraint firstItem="NJN-3h-Cdl" firstAttribute="leading" secondItem="O9b-Ma-C46" secondAttribute="leading" id="4Lt-AD-QvM"/>
+                                                <constraint firstItem="O9b-Ma-C46" firstAttribute="leading" secondItem="7F8-Tn-dkR" secondAttribute="leadingMargin" id="Jjf-IE-pEX"/>
                                                 <constraint firstItem="NJN-3h-Cdl" firstAttribute="trailing" secondItem="O9b-Ma-C46" secondAttribute="trailing" id="OdK-pE-G6S"/>
-                                                <constraint firstItem="O9b-Ma-C46" firstAttribute="top" secondItem="7F8-Tn-dkR" secondAttribute="topMargin" id="QAV-3a-3Ue"/>
-                                                <constraint firstItem="O9b-Ma-C46" firstAttribute="leading" secondItem="7F8-Tn-dkR" secondAttribute="leadingMargin" id="WvH-mO-GuL"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="NJN-3h-Cdl" secondAttribute="bottom" constant="8" id="jEp-G5-bk7"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="O9b-Ma-C46" secondAttribute="trailing" id="yVm-wO-4qV"/>
                                             </constraints>
@@ -55,7 +55,7 @@
                                         <connections>
                                             <outlet property="newsDescriptionLabel" destination="NJN-3h-Cdl" id="BBp-gP-gts"/>
                                             <outlet property="newsTitleLabel" destination="O9b-Ma-C46" id="2f6-ap-pE0"/>
-                                            <segue destination="9BR-wG-zVx" kind="show" id="SmX-tJ-dtA"/>
+                                            <segue destination="nbO-eQ-16J" kind="show" identifier="feedDetails" id="uFS-CV-nwP"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -73,8 +73,8 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dSM-q9-XVv"/>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="favorites" id="6DS-my-wB9"/>
-                    <navigationItem key="navigationItem" title="Лента" id="AyF-k3-Ai9"/>
+                    <tabBarItem key="tabBarItem" systemItem="favorites" id="SkG-gB-GBF"/>
+                    <navigationItem key="navigationItem" id="AyF-k3-Ai9"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="4JJ-jp-zkd" id="qiG-Fr-Vqm"/>
@@ -85,12 +85,12 @@
             <point key="canvasLocation" x="105" y="-451"/>
         </scene>
         <!--FeedDetails-->
-        <scene sceneID="N9z-4A-Qps">
+        <scene sceneID="9Dl-H0-4sm">
             <objects>
-                <viewControllerPlaceholder storyboardName="FeedDetails" id="9BR-wG-zVx" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2Ke-r4-02u" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="FeedDetails" id="nbO-eQ-16J" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gfE-l4-vLr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="751" y="-452"/>
+            <point key="canvasLocation" x="808" y="-452"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6RT-8d-35v">

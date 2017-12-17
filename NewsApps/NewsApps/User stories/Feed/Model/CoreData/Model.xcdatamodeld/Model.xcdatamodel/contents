@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17B1003" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="FeedItem" representedClassName=".FeedItemMO" syncable="YES">
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="desc" attributeType="String" syncable="YES"/>
-        <attribute name="details" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="link" attributeType="URI" syncable="YES"/>
         <attribute name="pubDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
+        <attribute name="url" attributeType="URI" syncable="YES"/>
         <relationship name="source" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Source" inverseName="feedItems" inverseEntity="Source" syncable="YES"/>
     </entity>
     <entity name="Source" representedClassName=".SourceMO" syncable="YES">
+        <attribute name="isEnabled" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="url" attributeType="String" syncable="YES"/>
         <relationship name="feedItems" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FeedItem" inverseName="source" inverseEntity="FeedItem" syncable="YES"/>
     </entity>
     <elements>
         <element name="FeedItem" positionX="-54" positionY="9" width="128" height="135"/>
-        <element name="Source" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="Source" positionX="-63" positionY="-18" width="128" height="105"/>
     </elements>
 </model>

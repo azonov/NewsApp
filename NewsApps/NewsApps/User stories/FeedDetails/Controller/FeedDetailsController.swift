@@ -1,22 +1,21 @@
 //
-//  FeedDetailsViewController.swift
+//  FeedDetailsController.swift
 //  NewsApps
 //
-//  Created by Andrey Zonov on 11/12/2017.
+//  Created by xcode on 12.12.2017.
 //  Copyright © 2017 VSU. All rights reserved.
 //
 
 import UIKit
 
-class FeedDetailsViewController: UIViewController {
+class FeedDetailsController: UIViewController {
     
     @IBOutlet weak var textView: UITextView!
-    var feedItem: FeedItemProtocol?
+    var feedItem: FeedItemMO?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = feedItem?.title
-        textView.text = feedItem?.details
+        textView.text = feedItem?.content?.uppercased()
         textView.textContainerInset = UIEdgeInsets(top: 20,
                                                    left: 10,
                                                    bottom: 20,

@@ -82,76 +82,76 @@ protocol SimpleXmlParser {
 
 extension XMLParserDelegate {
 
-    func parserDidStartDocument(_ parser: Foundation.XMLParser) { }
-    func parserDidEndDocument(_ parser: Foundation.XMLParser) { }
+    func parserDidStartDocument(_ feedItemParser: Foundation.XMLParser) { }
+    func parserDidEndDocument(_ feedItemParser: Foundation.XMLParser) { }
 
-    func parser(_ parser: Foundation.XMLParser,
+    func parser(_ feedItemParser: Foundation.XMLParser,
                 foundNotationDeclarationWithName name: String,
                 publicID: String?,
                 systemID: String?) { }
 
-    func parser(_ parser: Foundation.XMLParser,
+    func parser(_ feedItemParser: Foundation.XMLParser,
                 foundUnparsedEntityDeclarationWithName name: String,
                 publicID: String?,
                 systemID: String?,
                 notationName: String?) { }
 
-    func parser(_ parser: Foundation.XMLParser,
+    func parser(_ feedItemParser: Foundation.XMLParser,
                 foundAttributeDeclarationWithName attributeName: String,
                 forElement elementName: String,
                 type: String?,
                 defaultValue: String?) { }
 
-    func parser(_ parser: Foundation.XMLParser,
+    func parser(_ feedItemParser: Foundation.XMLParser,
                 foundElementDeclarationWithName elementName: String,
                 model: String) { }
 
-    func parser(_ parser: Foundation.XMLParser,
+    func parser(_ feedItemParser: Foundation.XMLParser,
                 foundInternalEntityDeclarationWithName name: String,
                 value: String?) { }
 
-    func parser(_ parser: Foundation.XMLParser,
+    func parser(_ feedItemParser: Foundation.XMLParser,
                 foundExternalEntityDeclarationWithName name: String,
                 publicID: String?,
                 systemID: String?) { }
 
-    func parser(_ parser: Foundation.XMLParser,
+    func parser(_ feedItemParser: Foundation.XMLParser,
                 didStartElement elementName: String,
                 namespaceURI: String?,
                 qualifiedName qName: String?,
                 attributes attributeDict: [String: String]) { }
 
-    func parser(_ parser: Foundation.XMLParser,
+    func parser(_ feedItemParser: Foundation.XMLParser,
                 didEndElement elementName: String,
                 namespaceURI: String?,
                 qualifiedName qName: String?) { }
 
-    func parser(_ parser: Foundation.XMLParser,
+    func parser(_ feedItemParser: Foundation.XMLParser,
                 didStartMappingPrefix prefix: String,
                 toURI namespaceURI: String) { }
 
-    func parser(_ parser: Foundation.XMLParser, didEndMappingPrefix prefix: String) { }
+    func parser(_ feedItemParser: Foundation.XMLParser, didEndMappingPrefix prefix: String) { }
 
-    func parser(_ parser: Foundation.XMLParser, foundCharacters string: String) { }
+    func parser(_ feedItemParser: Foundation.XMLParser, foundCharacters string: String) { }
 
-    func parser(_ parser: Foundation.XMLParser,
+    func parser(_ feedItemParser: Foundation.XMLParser,
                 foundIgnorableWhitespace whitespaceString: String) { }
 
-    func parser(_ parser: Foundation.XMLParser,
+    func parser(_ feedItemParser: Foundation.XMLParser,
                 foundProcessingInstructionWithTarget target: String,
                 data: String?) { }
 
-    func parser(_ parser: Foundation.XMLParser, foundComment comment: String) { }
+    func parser(_ feedItemParser: Foundation.XMLParser, foundComment comment: String) { }
 
-    func parser(_ parser: Foundation.XMLParser, foundCDATA CDATABlock: Data) { }
+    func parser(_ feedItemParser: Foundation.XMLParser, foundCDATA CDATABlock: Data) { }
 
-    func parser(_ parser: Foundation.XMLParser,
+    func parser(_ feedItemParser: Foundation.XMLParser,
                 resolveExternalEntityName name: String,
                 systemID: String?) -> Data? { return nil }
 
-    func parser(_ parser: Foundation.XMLParser, parseErrorOccurred parseError: NSError) { }
+    func parser(_ feedItemParser: Foundation.XMLParser, parseErrorOccurred parseError: NSError) { }
 
-    func parser(_ parser: Foundation.XMLParser,
+    func parser(_ feedItemParser: Foundation.XMLParser,
                 validationErrorOccurred validationError: NSError) { }
 }
 

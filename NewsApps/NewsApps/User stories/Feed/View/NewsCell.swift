@@ -13,4 +13,12 @@ class NewsCell: UITableViewCell {
     
     @IBOutlet weak var newsTitleLabel: UILabel!
     @IBOutlet weak var newsDescriptionLabel: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
+    override func prepareForReuse() {
+        super.awakeFromNib()
+    }
 }

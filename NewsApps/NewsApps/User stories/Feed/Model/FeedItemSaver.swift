@@ -11,7 +11,7 @@ import CoreData
 
 protocol FeedItemSaver {
     
-    func save(feedItems: [FeedItemProtocol]) throws
+    func save(feedItems: [FeedItem], for source: SourceInfoProtocol) throws
 }
 
 class FeedItemCoreDataSaver: FeedItemSaver {
@@ -22,9 +22,11 @@ class FeedItemCoreDataSaver: FeedItemSaver {
         self.context = context
     }
     
-    func save(feedItems: [FeedItemProtocol]) throws {
+    func save(feedItems: [FeedItem], for source: SourceInfoProtocol) throws {
+        let sourceMO = try context.fetch(SourceMO.fetchRequest(for: source.url)).first
         for feedItem in feedItems {
-            try FeedItemMO.createOrUpdate(item: feedItem, context: context)
+            let item = try FeedItemMO.createOrUpdate(item: feedItem, context: context)
+            item.source = sourceMO
         }
         try context.save()
     }

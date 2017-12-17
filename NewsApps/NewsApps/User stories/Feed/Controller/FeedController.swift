@@ -13,12 +13,12 @@ import SafariServices
 
 class FeedController: UIViewController, UITableViewDataSource {
     
-    @IBOutlet weak var tableView: UITableView!
-    let model = FeedModel()
+    lazy var model = FeedModel(with: UIApplication.container)
     
     private lazy var fetchedResultsController: NSFetchedResultsController<FeedItemMO> = {
         let request: NSFetchRequest<FeedItemMO> = FeedItemMO.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "pubDate", ascending: true)]
+        request.predicate = NSPredicate(format: "source.isEnabled = true")
         
         let fetchedResultsController = NSFetchedResultsController(
             fetchRequest: request,
@@ -31,10 +31,19 @@ class FeedController: UIViewController, UITableViewDataSource {
         return fetchedResultsController
     }()
     
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         performFetch()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         model.retreiveFeed()
+        performFetch()
+        tableView.reloadData()
     }
     
     private func performFetch() {
@@ -66,28 +75,34 @@ class FeedController: UIViewController, UITableViewDataSource {
         return cell
     }
     
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        guard let index = tableView.indexPathForSelectedRow?.row,
+    override func shouldPerformSegue(withIdentifier identifier: String,
+                                     sender: Any?) -> Bool {
+        guard identifier == "feedDetails", let index = tableView.indexPathForSelectedRow?.row,
             let items = fetchedResultsController.fetchedObjects else { return true }
         
         let item = items[index]
-        if item.details != nil {
+        if item.content != nil {
             return true
         } else {
-            present(SFSafariViewController(url: item.link), animated: true, completion: nil)
+            present(SFSafariViewController(url: item.url), animated: true, completion: nil)
             return false
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
         switch segue.destination {
-        case let viewController as FeedDetailsViewController:
+        case let viewController as FeedDetailsController:
             guard let index = tableView.indexPathForSelectedRow?.row,
-                let items = fetchedResultsController.fetchedObjects else { return }
+                let items = fetchedResultsController.fetchedObjects else {
+                    assertionFailure("Something went wrong!")
+                    return
+            }
             viewController.feedItem = items[index]
             
         default:
-            assertionFailure("Handle transiotion to \(segue.destination)")
+            assertionFailure("Handle transition to \(segue.destination)")
         }
     }
 }

@@ -8,18 +8,18 @@
 
 import UIKit
 
-struct FeedItem: FeedItemProtocol {
-    let title: String
-    let pubDate: Date
-    let link: URL
-    var desc: String
-    var details: String?
-}
-
 protocol FeedItemProtocol {
     var title: String { get }
     var desc: String { get }
+    var url: URL { get }
+    var content: String? { get }
     var pubDate: Date { get }
-    var link: URL { get }
-    var details: String? { get }
+}
+
+struct FeedItem: FeedItemProtocol {
+    let title: String
+    var desc: String
+    var content: String?
+    let pubDate: Date
+    let url: URL
 }

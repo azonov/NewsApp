@@ -10,6 +10,7 @@
 import Foundation
 import CoreData
 
+
 public class FeedItemMO: NSManagedObject {
     
     @discardableResult
@@ -33,8 +34,8 @@ public class FeedItemMO: NSManagedObject {
         feedItemMO.title = item.title
         feedItemMO.desc = item.desc
         feedItemMO.pubDate = item.pubDate
-        feedItemMO.link = item.link
-        feedItemMO.details = item.details
+        feedItemMO.content = item.content
+        feedItemMO.url = item.url
         
         return feedItemMO
     }
